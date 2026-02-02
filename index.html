@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer">
+    <title>Product Dashboard - Ngày 31/1</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Dashboard Sản Phẩm</h1>
+
+        <div class="toolbar">
+            <input type="text" id="searchInput" placeholder="Tìm kiếm theo tên sản phẩm..." oninput="handleSearch()">
+
+            <select id="sortSelect" onchange="handleSort()">
+                <option value="">-- Sắp xếp --</option>
+                <option value="priceAsc">Giá: Thấp đến Cao</option>
+                <option value="priceDesc">Giá: Cao đến Thấp</option>
+                <option value="nameAsc">Tên: A -> Z</option>
+                <option value="nameDesc">Tên: Z -> A</option>
+            </select>
+
+            <select id="pageSizeSelect" onchange="handlePageSizeChange()">
+                <option value="5">Hiển thị 5</option>
+                <option value="10" selected>Hiển thị 10</option>
+                <option value="20">Hiển thị 20</option>
+            </select>
+        </div>
+
+        <table id="productTable">
+            <thead>
+                <tr>
+                    <th>Hình ảnh</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Giá ($)</th>
+                </tr>
+            </thead>
+            <tbody id="productBody"></tbody>
+        </table>
+
+        <div class="pagination" id="pagination"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
