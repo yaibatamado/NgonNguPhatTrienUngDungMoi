@@ -30,6 +30,10 @@ router.post('/login', async function (req, res, next) {
       id: getUser._id,
       exp: Date.now() + 3600 * 1000
     }, "HUTECH")
+    res.cookie("token", token, {
+      httpOnly: true,
+      maxAge: 60 * 60 * 1000
+    });
     res.send(token)
   } else {
     res.status(404).send({
@@ -39,9 +43,16 @@ router.post('/login', async function (req, res, next) {
 });
 //localhost:3000
 router.get('/me', checkLogin, async function (req, res, next) {
-    let user = await userController.FindByID(req.userId);
-    res.send(user)
+  let user = await userController.FindByID(req.userId);
+  res.send(user)
 });
+router.post('/logout', checkLogin, function (req, res, next) {
+  res.cookie('token', null, {
+    maxAge: 0,
+    httpOnly: true
+  })
+  res.send("logout")
+})
 
 
 module.exports = router;

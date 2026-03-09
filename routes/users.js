@@ -3,17 +3,17 @@ var router = express.Router();
 let bcrypt = require('bcrypt')
 let { userPostValidation, validateResult } =
   require('../utils/validationHandler')
-let { checkLogin } = require('../utils/authHandler')
+let { checkLogin,checkRole } = require('../utils/authHandler')
 
 let userController = require("../controllers/users");
 
 
-router.get("/", checkLogin, async function (req, res, next) {
+router.get("/", checkLogin,checkRole("ADMIN") , async function (req, res, next) {
   let result = await userController.getAllUser();
   res.send(result)
 });
 
-router.get("/:id",checkLogin, async function (req, res, next) {
+router.get("/:id", checkLogin,checkRole("ADMIN","MODERATOR"), async function (req, res, next) {
   try {
     let result = await userController.FindByID(req.params.id)
     if (result) {

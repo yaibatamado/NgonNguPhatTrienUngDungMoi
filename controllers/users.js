@@ -22,6 +22,8 @@ module.exports = {
             .findOne({
                 _id: id,
                 isDeleted: false 
+            }).populate({
+                path:'role', select:'name'
             });
     },
     FindByUsername: async function (username) {
